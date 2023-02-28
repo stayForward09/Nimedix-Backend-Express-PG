@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  sample:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: niMedix_backend
+    container_name: niMedix_backend
+    volumes:
+      - '/usr/src/niMedix-be'
+      - '/usr/src/niMedix-be/node_modules'
+    ports:
+      - 4000:4000
+    environment:
+      - CHOKIDAR_USEPOLLING=true

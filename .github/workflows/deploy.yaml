@@ -1,0 +1,41 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  docker-deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # need checkout before using docker-compose-remote-action
+      - uses: actions/checkout@v2
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.niMedix_DOCKER_SSH_PRIVATE_KEY }}
+          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy with rsync
+        run: rsync -avz ./ ubuntu@${{ secrets.SSH_HOST }}:/opt/niMedix
+
+      - name: Setup .env file
+        run: ssh ubuntu@${{ secrets.SSH_HOST }} 'cp /opt/niMedix_config_files/.env /opt/niMedix/'
+        
+      - name: Run Docker Compose
+        run: ssh ubuntu@${{ secrets.SSH_HOST }} 'cd /opt/niMedix && docker-compose down && docker system prune --force --volumes && docker-compose up --detach --build'
