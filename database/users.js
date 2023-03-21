@@ -11,8 +11,8 @@ const createUserWithEmailAndPassword = async (email, full_name, phone_number, ad
 	if (results.rows.length > 0) {
 		return { success: false };
 	} else {
-		const wallet_address = "dfdfjdkgjdkfjsdlkjfk"
-		results = await pool.query('INSERT INTO nimedix_user(email, full_name, phone_number, address, dob, photo, pass, username, user_role, wallet_address) VALUES ($1, $2, $3, $4,$5, $6, $7, $8,$9, $10, $11) RETURNING *', [email, full_name, phone_number, address, dob, photo, password, username, user_role, wallet_address]);
+		var wallet_address = "dfdfjdkgjdkfjsdlkjfk"
+		results = await pool.query('INSERT INTO nimedix_user(email, full_name, phone_number, address, dob, photo, pass, username, user_role, wallet_address) VALUES ($1, $2, $3, $4,$5, $6, $7, $8,$9, $10) RETURNING *', [email, full_name, phone_number, address, dob, photo, password, username, user_role, wallet_address]);
 		return { success: true, rows: results.rows };
 	}
 }
