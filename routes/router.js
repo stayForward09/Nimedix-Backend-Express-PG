@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const { verify } = require('../core/verify-token');
 
 const authRouter = require('./auth.router');
+const waitlistRouter = require('./waitlist.router');
+
 require('dotenv').config();
 
 const router = express.Router();
@@ -23,5 +25,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/auth', authRouter);
+router.use('/waitlist', waitlistRouter);
 
 module.exports = router;
