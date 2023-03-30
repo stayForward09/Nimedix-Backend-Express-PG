@@ -89,3 +89,81 @@
          status VARCHAR,
          PRIMARY KEY (id)  
       );  
+
+3.servieces_offered Table:
+      CREATE TABLE nimedix_services_offered (  
+         id uuid DEFAULT uuid_generate_v4 (),    
+         service_name VARCHAR, 
+         service_detail VARCHAR,
+         service_img VARCHAR,
+         PRIMARY KEY (id)  
+      );  
+
+      INSERT INTO nimedix_services_offered(service_name, service_detail, service_img) VALUES ($1, $2, $3)
+4.appointments Table:
+      CREATE TABLE nimedix_appointments (  
+         id uuid DEFAULT uuid_generate_v4 (),    
+         owner_email VARCHAR, 
+         partner_email VARCHAR,
+         partner_name VARCHAR,
+         type VARCHAR, 
+         time TIMESTAMP,
+         duration int8,
+         PRIMARY KEY (id)  
+      );  
+
+      INSERT INTO nimedix_appointments(owner_email, partner_email, partner_name,type,time, duration) VALUES ($1, $2, $3,$4, $5, $6)
+
+5.vitals Table:
+      CREATE TABLE nimedix_vitals (  
+         id uuid DEFAULT uuid_generate_v4 (),    
+         email VARCHAR, 
+         heartRate int8,
+         O2Saturation int8,
+         respirationRate int8, 
+         bodyTemp int8,
+         bloodSugar int8,
+         takeMedicine timestamp,
+         status bool DEFAULT false,
+         PRIMARY KEY (id)  
+      );  
+
+      INSERT INTO nimedix_vitals(email, heartRate, O2Saturation,respirationRate,bodyTemp, bloodSugar) VALUES ($1, $2, $3,$4, $5, $6)
+
+6.messages Table:
+      CREATE TABLE nimedix_messages (  
+         id uuid DEFAULT uuid_generate_v4 (),    
+         sender VARCHAR, 
+         recipiant VARCHAR,
+         content VARCHAR,
+         date timestamp,
+         is_read BOOL,
+         is_delete BOOL,
+         updated_date timestamp,
+         quote_message_id VARCHAR,
+         quote_message_name VARCHAR,
+         quote_message_date VARCHAR,
+         quote_message_body VARCHAR,
+         PRIMARY KEY (id)  
+      );  
+
+7.conversations Table:
+      CREATE TABLE nimedix_conversations (  
+         id uuid DEFAULT uuid_generate_v4 (),  
+         sender VARCHAR,
+         recipient VARCHAR,
+         last_msg VARCHAR,
+         date timestamp,        
+         PRIMARY KEY (id)  
+      );  
+8.assets Table: 
+      CREATE TABLE nimedix_assets (  
+         id uuid DEFAULT uuid_generate_v4 (),  
+         name VARCHAR,
+         key VARCHAR,
+         date timestamp,    
+         mimeType VARCHAR,    
+         size int8,
+         PRIMARY KEY (id)  
+      );  
+                     
