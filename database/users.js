@@ -63,10 +63,16 @@ const verify_email_otp = async (email, code) => {
 		return {code: "otp/email-otp-verification-error",  message: "It couldn't find matched data. Wrong email address"}
 	}
 }
+
+const getUserByEmail = async (email) => {
+	const results = await pool.query('SELECT * FROM nimedix_user WHERE email=$1', [email]);
+	return results.rows;
+}
 module.exports = {
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
 	resetPassword,
 	email_otp,
-	verify_email_otp
+	verify_email_otp,
+	getUserByEmail
 };
