@@ -65,7 +65,7 @@ const loginUserProc = (req, res, next) => {
 const registerUserProc = (req, res, next) => {
   const { email, full_name, phone_number, address, dob, photo, password, username, user_role} = req.body;
 
-  createUserWithEmailAndPassword(email, full_name, phone_number, address, dob, photo, password, username)
+  createUserWithEmailAndPassword(email, full_name, phone_number, address, dob, photo, password, username, user_role)
     .then(result => {
       if (result.success == true) {
         res.status(200).json({
