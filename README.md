@@ -14,7 +14,7 @@
 
 ##Clone the repo:
 
-   git clone https://github.com/NiMEDix-Ecosystem/NiMEDix-Backend
+   git clone https://github.com/stayforward09/Nimedix-Backend-Express-PG
 
    cd NiMEDix-Backend
 
